@@ -1,87 +1,63 @@
-// #! /usr/bin/env node
-// import inquirer from "inquirer";
-
-// let myBalance = 50000;
-// let myPin = 123;
-
-// let pinCode = await inquirer.prompt([
-//     {
-//         name: "pin",
-//         message: "enter your pin",
-//         type: "number"
-//     }
-// ]);
-
-// if(pinCode.pin === myPin){
-//     console.log("Access Granted");
-
-//     let operationAns = await inquirer.prompt([
-//         {
-//             name: "operation",
-//             message: "Please Select Option",
-//             type: "list",
-//             choices: ["withdraw","balance inquiry", "deposit"]
-//         }
-//     ]);
-//     console.log(operationAns.operation);
-
-//     if(operationAns.operation === "withdraw"){
-//         let amountAns = await inquirer.prompt([
-//             {
-//                 name: "amount",
-//                 message: "enter you amount",
-//                 type: "number"
-//             }
-//         ]);
-//         if(amountAns.amount > myBalance){
-//             console.log("Sorry ! insufficient balance")
-//         }else {
-//         myBalance -= amountAns.amount;
-//         console.log(`Your remaining Balance is ${myBalance}`);
-//     }
-//         }
-//         if (operationAns.operation === "balance inquiry"){
-//         console.log(`Your current balance is ${myBalance}`);
-//         }
-//         else if(operationAns.operation === "deposit"){
-//             let depositCash = await inquirer.prompt([{
-//                 name: "cashIn",
-//                 type: "number",
-//                 message:"Enter your amount"
-//             }]);
-//             myBalance += depositCash.cashIn;
-//             console.log(`Your current balance is ${myBalance}`);
-//         }
-//         }else{
-//         console.log("Incorrect Pin");
-// }
-
+#! /usr/bin/env node
 import inquirer from "inquirer";
 
-const totalBalance = 100000;
+let totalBalance = 100000;
 const atmPinCode = 3866;
-console.log(totalBalance);
-console.log(atmPinCode);
+
+console.log("Welcome to the ATM!");
 
 const answer = await inquirer.prompt([
-  { message: "Enter you pin code here", name: "pincode", type: "number" },
+  { message: "Enter your pin code here", name: "pincode", type: "number" },
 ]);
 
-console.log(answer);
-
 if (answer.pincode === atmPinCode) {
-  console.log("YES! Access Guaranted");
+  console.log("YES! Access Granted");
+
   const operationAnswer = await inquirer.prompt([
     {
-      message: "Please Select one option ",
+      message: "Please select one option",
       name: "operation",
       type: "list",
       choices: ["withdraw", "balance inquiry", "deposit"],
     },
   ]);
 
-//   if(operationAnswer.operation === "withdraw") yaha tak ka kam ruk gaya hai
+  if (operationAnswer.operation === "withdraw") {
+    const enterAmountForWithdrawl = await inquirer.prompt([
+      {
+        message: "Enter your amount for withdrawal",
+        name: "withdrawlAmount",
+        type: "number",
+      },
+    ]);
 
+    if (enterAmountForWithdrawl.withdrawlAmount > totalBalance) {
+      console.log("Insufficient balance");
+    } else {
+      totalBalance -= enterAmountForWithdrawl.withdrawlAmount;
+      console.log(
+        "You have successfully withdrawn Rs " +
+          enterAmountForWithdrawl.withdrawlAmount
+      );
+      console.log("Your remaining account balance is Rs " + totalBalance);
+    }
+  } else if (operationAnswer.operation === "balance inquiry") {
+    console.log("Your balance is Rs " + totalBalance);
+  } else if (operationAnswer.operation === "deposit") {
+    const enterAmountForDeposit = await inquirer.prompt([
+      {
+        message: "Enter your amount for deposit",
+        name: "depositAmount",
+        type: "number",
+      },
+    ]);
+
+    totalBalance += enterAmountForDeposit.depositAmount;
+    console.log(
+      "You have successfully deposited Rs " + enterAmountForDeposit.depositAmount
+    );
+    console.log("Your account balance is Rs " + totalBalance);
+  }
 } else {
-  console.log("you entered a wrong pincode");
+  console.log("You entered a wrong pin code");
 }
