@@ -5,6 +5,7 @@ let totalBalance = 100000;
 const atmPinCode = 3866;
 
 console.log("Welcome to the ATM!");
+console.log(" If you try this then atm service so your password is 3866");
 
 const answer = await inquirer.prompt([
   { message: "Enter your pin code here", name: "pincode", type: "number" },
