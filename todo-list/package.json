@@ -1,18 +1,16 @@
 {
-  "name": "@hasancoder66/todo-list",
-  "version": "1.0.0",
+  "name": "hasancoder66-todo-list",
+  "version": "1.0.3",
   "main": "index.js",
   "type": "module",
-  "publishConfig": {
-    "access": "public"
-  },
+  "bin": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Todo List",
   "dependencies": {
     "inquirer": "^12.0.0"
   },
